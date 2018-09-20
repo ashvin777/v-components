@@ -29,7 +29,7 @@ class vElement extends HTMLElement {
       <div>FullName: ${this.scope.fullName}</div>
       <div>Age: ${this.scope.age}</div>
 
-      <ul>
+      <ul style="border:1px solid red; max-height: 300px; overflow: auto;">
       ${this.scope.list.map(item => {
         return `<li>${item}</li>`
       }).join('')}
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   setInterval(() => {
     vElement.scope.age++;
-    vElement.scope.list.push(vElement.scope.age);
-  }, 4000);
+    vElement.scope.list.unshift(vElement.scope.age);
+  }, 1000);
 
 });
