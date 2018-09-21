@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "webpack-dev-server --open --config webpack/webpack.dev.js",
-    "build": "webpack --config webpack/webpack.prod.js",
-
-    "rollup": "npx rollup -c --environment INCLUDE_DEPS,BUILD:production",
+    "start": "webpack-dev-server --open --config conf/webpack.dev.js",
+    "build": "webpack --config conf/webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

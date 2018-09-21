@@ -1,92 +1,53 @@
-// import {
-//   observable,
-//   observe
-// } from '@nx-js/observer-util';
+import {LitElement, html, property} from '@polymer/lit-element';
 
-// class vElement extends HTMLElement {
-//   constructor() {
-//     super();
+class MyElement extends LitElement {
 
-//     this.state = observable(this.data());
-//     observe(this.render.bind(this));
+  static get properties() {
+    return {
+      foot: { type: String },
+      whales: { type: Number}
+    };
+  }
 
-//     this.addEventListener('click', () => {
-//       console.log('clicked');
-//     });
-//   }
+  constructor() {
+    super();
+    this.addEventListener('click', async (e) => {
+      this.whales++;
+      await this.updateComplete;
+      this.dispatchEvent(new CustomEvent('whales', {detail: {whales: this.whales}}))
+    });
+  }
 
-//   data() {
-//     return {
-//       firstName: '',
-//       lastName: '',
-//       list: [],
-//       get fullName() {
-//         return this.firstName + ' ' + this.lastName
-//       }
-//     };
-//   }
+  // Render method should return a `TemplateResult` using the provided lit-html `html` tag function
+  render() {
+    return html`
+      <style>
+        :host {
+          display: block;
+        }
+        :host([hidden]) {
+          display: none;
+        }
+      </style>
+      <h4>Foo: ${this.foo}</h4>
+      <div>whales: ${'🐳'.repeat(this.whales)}</div>
+      <slot></slot>
+    `;
+  }
 
-//   onclick() {
-//     console.log('clicked on first name');
-//   }
-
-//   render() {
-//     this.innerHTML = `
-//       <div>FirstName: ${this.state.firstName}</div>
-//       <div>LastName: ${this.state.lastName}</div>
-//       <div>FullName: ${this.state.fullName}</div>
-//       <div>Age: ${this.state.age}</div>
-
-//       <ul style="border:1px solid red; max-height: 300px; overflow: auto;">
-//       ${this.state.list.map(item => {
-//         return `<li>${item}</li>`
-//       }).join('')}
-//       </ul>
-//       `;
-//   }
-// }
-
-// customElements.define('v-element', vElement);
+}
+customElements.define('my-element', MyElement);
 
 document.addEventListener('DOMContentLoaded', () => {
-
   document.body.innerHTML = `
-  <my-element mood="happy"></my-element>
+  <my-element whales="5">hi</my-element>
   `;
 
-  // let vElement = document.getElementById('test');
-  // vElement.state.firstName = 'ashvin';
-  // vElement.state.lastName = 'suthar';
-  // vElement.state.age = 0;
+
+  // let element = document.getElementById('test');
+  // let i = 0;
 
   // setInterval(() => {
-  //   vElement.state.age++;
-  //   vElement.state.list.unshift(vElement.state.age);
-  // }, 1000);
-
+  //   element.setAttribute('mood', i++);
+  // }, 1);
 });
-
-
-import {LitElement, html} from '@polymer/lit-element';
-
-    class MyElement extends LitElement {
-
-      static get properties() {
-        return {
-          mood: {type: String}
-        };
-      }
-
-      constructor() {
-        super();
-        this.mood = 'happy';
-      }
-
-      render() {
-        return html`<style> .mood { color: green; } </style>
-          Web Components are <span class="mood">${this.mood}</span>!`;
-      }
-
-    }
-
-    customElements.define('my-element', MyElement);
