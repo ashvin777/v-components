@@ -3,18 +3,27 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "webpack",
-    "start": "webpack-dev-server --open",
+    "start": "webpack-dev-server --open --config webpack/webpack.dev.js",
+    "build": "webpack --config webpack/webpack.prod.js",
+
+    "rollup": "npx rollup -c --environment INCLUDE_DEPS,BUILD:production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@nx-js/observer-util": "^4.2.0",
+    "@polymer/lit-element": "^0.6.1",
     "clean-webpack-plugin": "^0.1.19",
     "html-webpack-plugin": "^3.2.0",
+    "rollup-plugin-commonjs": "^9.1.8",
+    "rollup-plugin-node-resolve": "^3.4.0",
     "webpack": "^4.19.1",
     "webpack-cli": "^3.1.0",
-    "webpack-dev-server": "^3.1.8"
+    "webpack-dev-server": "^3.1.8",
+    "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "rollup": "^0.66.2"
   }
 }
